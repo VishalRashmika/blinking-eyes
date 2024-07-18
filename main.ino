@@ -163,6 +163,65 @@ void wakeup()
   }
 }
 
+void happy_eye()
+{
+  center_eyes(false);
+  // draw inverted triangle over eye lower part
+  int offset = ref_eye_height / 2;
+  for (int i = 0; i < 10; i++)
+  {
+    display.fillTriangle(left_eye_x - left_eye_width / 2 - 1, left_eye_y + offset, left_eye_x + left_eye_width / 2 + 1, left_eye_y + 5 + offset, left_eye_x - left_eye_width / 2 - 1, left_eye_y + left_eye_height + offset, SSD1306_BLACK);
+    // display.fillRect(left_eye_x-left_eye_width/2-1, left_eye_y+5, left_eye_width+1, 20,SSD1306_BLACK);
+
+    display.fillTriangle(right_eye_x + right_eye_width / 2 + 1, right_eye_y + offset, right_eye_x - left_eye_width / 2 - 1, right_eye_y + 5 + offset, right_eye_x + right_eye_width / 2 + 1, right_eye_y + right_eye_height + offset, SSD1306_BLACK);
+    // display.fillRect(right_eye_x-right_eye_width/2-1, right_eye_y+5, right_eye_width+1, 20,SSD1306_BLACK);
+    offset -= 2;
+    display.display();
+    delay(1);
+  }
+
+  display.display();
+  delay(1000);
+}
+
+void saccade(int direction_x, int direction_y)
+{
+  // quick movement of the eye, no size change. stay at position after movement, will not move back,  call again with opposite direction
+  // direction == -1 :  move left
+  // direction == 1 :  move right
+
+  int direction_x_movement_amplitude = 8;
+  int direction_y_movement_amplitude = 6;
+  int blink_amplitude = 8;
+
+  for (int i = 0; i < 1; i++)
+  {
+    left_eye_x += direction_x_movement_amplitude * direction_x;
+    right_eye_x += direction_x_movement_amplitude * direction_x;
+    left_eye_y += direction_y_movement_amplitude * direction_y;
+    right_eye_y += direction_y_movement_amplitude * direction_y;
+
+    right_eye_height -= blink_amplitude;
+    left_eye_height -= blink_amplitude;
+    draw_eyes();
+    delay(1);
+  }
+
+  for (int i = 0; i < 1; i++)
+  {
+    left_eye_x += direction_x_movement_amplitude * direction_x;
+    right_eye_x += direction_x_movement_amplitude * direction_x;
+    left_eye_y += direction_y_movement_amplitude * direction_y;
+    right_eye_y += direction_y_movement_amplitude * direction_y;
+
+    right_eye_height += blink_amplitude;
+    left_eye_height += blink_amplitude;
+
+    draw_eyes();
+    delay(1);
+  }
+}
+
 
 
 
