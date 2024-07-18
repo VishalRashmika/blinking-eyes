@@ -123,7 +123,45 @@ void center_eyes(bool update = true)
   draw_eyes(update);
 }
 
+void blink(int speed = 12)
+{
+  draw_eyes();
 
+  for (int i = 0; i < 3; i++)
+  {
+    left_eye_height = left_eye_height - speed;
+    right_eye_height = right_eye_height - speed;
+    draw_eyes();
+    delay(1);
+  }
+  for (int i = 0; i < 3; i++)
+  {
+    left_eye_height = left_eye_height + speed;
+    right_eye_height = right_eye_height + speed;
+
+    draw_eyes();
+    delay(1);
+  }
+}
+
+void sleep()
+{
+  left_eye_height = 2;
+  right_eye_height = 2;
+  draw_eyes(true);
+}
+void wakeup()
+{
+
+  sleep();
+
+  for (int h = 0; h <= ref_eye_height; h += 2)
+  {
+    left_eye_height = h;
+    right_eye_height = h;
+    draw_eyes(true);
+  }
+}
 
 
 
