@@ -221,7 +221,106 @@ void saccade(int direction_x, int direction_y)
     delay(1);
   }
 }
+void move_right_big_eye()
+{
+  move_big_eye(1);
+}
+void move_left_big_eye()
+{
+  move_big_eye(-1);
+}
+void move_big_eye(int direction)
+{
+  // direction == -1 :  move left
+  // direction == 1 :  move right
 
+  int direction_oversize = 1;
+  int direction_movement_amplitude = 2;
+  int blink_amplitude = 5;
+
+  for (int i = 0; i < 3; i++)
+  {
+    left_eye_x += direction_movement_amplitude * direction;
+    right_eye_x += direction_movement_amplitude * direction;
+    right_eye_height -= blink_amplitude;
+    left_eye_height -= blink_amplitude;
+    if (direction > 0)
+    {
+      right_eye_height += direction_oversize;
+      right_eye_width += direction_oversize;
+    }
+    else
+    {
+      left_eye_height += direction_oversize;
+      left_eye_width += direction_oversize;
+    }
+
+    draw_eyes();
+    delay(1);
+  }
+  for (int i = 0; i < 3; i++)
+  {
+    left_eye_x += direction_movement_amplitude * direction;
+    right_eye_x += direction_movement_amplitude * direction;
+    right_eye_height += blink_amplitude;
+    left_eye_height += blink_amplitude;
+    if (direction > 0)
+    {
+      right_eye_height += direction_oversize;
+      right_eye_width += direction_oversize;
+    }
+    else
+    {
+      left_eye_height += direction_oversize;
+      left_eye_width += direction_oversize;
+    }
+    draw_eyes();
+    delay(1);
+  }
+
+  delay(1000);
+
+  for (int i = 0; i < 3; i++)
+  {
+    left_eye_x -= direction_movement_amplitude * direction;
+    right_eye_x -= direction_movement_amplitude * direction;
+    right_eye_height -= blink_amplitude;
+    left_eye_height -= blink_amplitude;
+    if (direction > 0)
+    {
+      right_eye_height -= direction_oversize;
+      right_eye_width -= direction_oversize;
+    }
+    else
+    {
+      left_eye_height -= direction_oversize;
+      left_eye_width -= direction_oversize;
+    }
+    draw_eyes();
+    delay(1);
+  }
+  for (int i = 0; i < 3; i++)
+  {
+    left_eye_x -= direction_movement_amplitude * direction;
+    right_eye_x -= direction_movement_amplitude * direction;
+    right_eye_height += blink_amplitude;
+    left_eye_height += blink_amplitude;
+    if (direction > 0)
+    {
+      right_eye_height -= direction_oversize;
+      right_eye_width -= direction_oversize;
+    }
+    else
+    {
+      left_eye_height -= direction_oversize;
+      left_eye_width -= direction_oversize;
+    }
+    draw_eyes();
+    delay(1);
+  }
+
+  center_eyes();
+}
 
 
 
