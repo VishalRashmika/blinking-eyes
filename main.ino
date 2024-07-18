@@ -352,9 +352,45 @@ void setup()
 
 }
 
-void loop() {
-  digitalWrite(LED_BUILTIN, HIGH); 
-  delay(1000);                     
-  digitalWrite(LED_BUILTIN, LOW);  
-  delay(1000);                     
+void loop()
+{
+  for (int i = 0; i <= 8; i++)
+  {
+    switch (i)
+    {
+    case 0:
+      wakeup();
+      break;
+    case 1:
+      center_eyes(true);
+      break;
+    case 2:
+      move_right_big_eye();
+      break;
+    case 3:
+      move_left_big_eye();
+      break;
+    case 4:
+      blink(10);
+      break;
+    case 5:
+      blink(20);
+      break;
+    case 6:
+      happy_eye();
+      break;
+    case 7:
+      sleep();
+      break;
+    case 8:
+      int dir_x = random(-1, 2);
+      int dir_y = random(-1, 2);
+      saccade(dir_x, dir_y);
+      delay(300);
+      saccade(-dir_x, -dir_y);
+      delay(300);
+      break;
+    }
+    delay(2000);
+  }
 }
