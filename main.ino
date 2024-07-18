@@ -91,7 +91,37 @@ const unsigned char epd_bitmap_diss [] PROGMEM = {
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
+void draw_eyes(bool update = true)
+{
+  display.clearDisplay();
+  // draw from center
+  int x = int(left_eye_x - left_eye_width / 2);
+  int y = int(left_eye_y - left_eye_height / 2);
+  display.fillRoundRect(x, y, left_eye_width, left_eye_height, ref_corner_radius, SSD1306_WHITE);
+  x = int(right_eye_x - right_eye_width / 2);
+  y = int(right_eye_y - right_eye_height / 2);
+  display.fillRoundRect(x, y, right_eye_width, right_eye_height, ref_corner_radius, SSD1306_WHITE);
+  if (update)
+  {
+    display.display();
+  }
+}
 
+void center_eyes(bool update = true)
+{
+  // move eyes to the center of the display, defined by SCREEN_WIDTH, SCREEN_HEIGHT
+  left_eye_height = ref_eye_height;
+  left_eye_width = ref_eye_width;
+  right_eye_height = ref_eye_height;
+  right_eye_width = ref_eye_width;
+
+  left_eye_x = SCREEN_WIDTH / 2 - ref_eye_width / 2 - ref_space_between_eye / 2;
+  left_eye_y = SCREEN_HEIGHT / 2;
+  right_eye_x = SCREEN_WIDTH / 2 + ref_eye_width / 2 + ref_space_between_eye / 2;
+  right_eye_y = SCREEN_HEIGHT / 2;
+
+  draw_eyes(update);
+}
 
 
 
